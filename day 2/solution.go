@@ -51,6 +51,32 @@ func getGameNumber(line string) int {
 	return 0
 }
 
+func part1(scanner *bufio.Scanner) {
+	sum := 0
+	for scanner.Scan() {
+		line := scanner.Text()
+		amountOfRed := getMaxAmountOfColor(line, "red")
+		amountOfGreen := getMaxAmountOfColor(line, "green")
+		amountOfBlue := getMaxAmountOfColor(line, "blue")
+		if amountOfRed <= 12 && amountOfBlue <= 14 && amountOfGreen <= 13 {
+			sum += getGameNumber(line)
+		}
+	}
+	fmt.Println("Sum of games that are possible: ", sum)
+}
+
+func part2(scanner *bufio.Scanner) {
+	sum := 0
+	for scanner.Scan() {
+		line := scanner.Text()
+		amountOfRed := getMaxAmountOfColor(line, "red")
+		amountOfGreen := getMaxAmountOfColor(line, "green")
+		amountOfBlue := getMaxAmountOfColor(line, "blue")
+		sum += (amountOfBlue * amountOfGreen * amountOfRed)
+	}
+	fmt.Println("Sum of minimum set of cubes: ", sum)
+}
+
 func main() {
 	fmt.Println("Reading input file...")
 	input, err := os.ReadFile("input.txt")
@@ -58,17 +84,8 @@ func main() {
 		log.Fatalf("Error reading input file: %s", err)
 	}
 	fmt.Println("Input file read successfully!")
-	count := 0
-	scanner := getScanner(input)
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		amountOfRed := getMaxAmountOfColor(line, "red")
-		amountOfGreen := getMaxAmountOfColor(line, "green")
-		amountOfBlue := getMaxAmountOfColor(line, "blue")
-		if amountOfRed <= 12 && amountOfBlue <= 14 && amountOfGreen <= 13 {
-			count += getGameNumber(line)
-		}
-	}
-	fmt.Println("Sum of Games that are possible: ", count)
+	scanner1 := getScanner(input)
+	scanner2 := getScanner(input)
+	part1(scanner1)
+	part2(scanner2)
 }
