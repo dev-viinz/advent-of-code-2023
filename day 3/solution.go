@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 )
 
 func main() {
@@ -18,6 +19,9 @@ func main() {
 	for scanner.Scan() {
 		lineArray = append(lineArray, scanner.Text())
 	}
-	part1(lineArray)
-	part2(lineArray)
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go part1(&wg, lineArray)
+	go part2(&wg, lineArray)
+	wg.Wait()
 }

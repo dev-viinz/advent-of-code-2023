@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"sync"
 )
 
-func part1(lineArray []string) {
+func part1(wg *sync.WaitGroup, lineArray []string) {
 	// sum := 0
+	defer wg.Done()
 	var realPartNumbers []int
 	for key, line := range lineArray {
 		currentPartNumbers := getPartNumbers(line)

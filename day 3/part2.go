@@ -5,6 +5,7 @@ import (
 	"log"
 	"sort"
 	"strconv"
+	"sync"
 	"unicode"
 )
 
@@ -148,7 +149,8 @@ func getGearRatio(gear Validgear, grid Grid2D) int {
 	return number1 * number2
 }
 
-func part2(lineArray []string) {
+func part2(wg *sync.WaitGroup, lineArray []string) {
+	defer wg.Done()
 	grid := initGrid(lineArray)
 	gears := findGears(grid)
 	validGears := determineValidgearsWithNumberPositions(gears, grid)
